@@ -1,0 +1,37 @@
+<div class="patient-form-container">
+  <h2>{{ patientId ? 'Editar Paciente' : 'Novo Paciente' }}</h2>
+
+  <form [formGroup]="patientForm" (ngSubmit)="onSubmit()">
+    <label>
+      Nome
+      <input formControlName="name" type="text" />
+    </label>
+
+    <label>
+      CPF
+      <input formControlName="cpf" type="text" />
+    </label>
+   
+    <label>
+      Telefone
+      <input formControlName="phone" type="text" />
+    </label>
+
+    <label>
+      Especialidade
+      <input formControlName="specialty" type="text" />
+    </label>
+
+    <label>
+      Data Atendimento
+      <input formControlName="service_date" type="date" />
+    </label>
+
+    <div class="buttons">
+      <button type="submit" [disabled]="loading">Salvar</button>
+      <button type="button" (click)="cancel()" [disabled]="loading">Cancelar</button>
+    </div>
+
+    <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+  </form>
+</div>

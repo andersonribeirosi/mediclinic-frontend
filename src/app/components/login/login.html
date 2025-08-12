@@ -1,0 +1,18 @@
+<div class="login-container">
+  <h2>Login</h2>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <label>
+      Usuário
+      <input formControlName="username" type="text" />
+    </label>
+
+    <label>
+      Senha
+      <input formControlName="password" type="password" />
+    </label>
+
+    <button type="submit" [disabled]="loading">Entrar</button>
+
+    <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+  </form>
+</div>
