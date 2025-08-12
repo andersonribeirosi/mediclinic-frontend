@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Patient } from '../patient.model';
+import { Patient } from '../../../models/patient.model';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { PatientsService } from '../../../services/patients.service';

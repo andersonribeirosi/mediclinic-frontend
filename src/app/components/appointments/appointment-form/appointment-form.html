@@ -1,0 +1,37 @@
+<div class="appointment-form-container">
+  <h2>{{ appointmentId ? 'Editar Consulta' : 'Nova Consulta' }}</h2>
+
+  <form [formGroup]="appointmentForm" (ngSubmit)="onSubmit()">
+    <label>
+      Paciente ID
+      <input formControlName="patient_id" type="number" />
+    </label>
+
+    <label>
+      Data e Hora
+      <input formControlName="date" type="datetime-local" />
+    </label>
+
+    <label>
+      Médico
+      <input formControlName="doctor" type="text" />
+    </label>
+
+    <label>
+      Especialidade
+      <input formControlName="specialty" type="text" />
+    </label>
+
+    <label>
+      Observações
+      <textarea formControlName="notes"></textarea>
+    </label>
+
+    <div class="buttons">
+      <button type="submit" [disabled]="loading">Salvar</button>
+      <button type="button" (click)="cancel()" [disabled]="loading">Cancelar</button>
+    </div>
+
+    <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+  </form>
+</div>
