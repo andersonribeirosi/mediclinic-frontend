@@ -2,19 +2,15 @@
   <h2>{{ appointmentId ? 'Editar Consulta' : 'Nova Consulta' }}</h2>
 
   <form [formGroup]="appointmentForm" (ngSubmit)="onSubmit()">
+
     <label>
       Paciente ID
       <input formControlName="patient_id" type="number" />
     </label>
 
     <label>
-      Data e Hora
-      <input formControlName="date" type="datetime-local" />
-    </label>
-
-    <label>
-      Médico
-      <input formControlName="doctor" type="text" />
+      Médico ID
+      <input formControlName="doctor_id" type="number" />
     </label>
 
     <label>
@@ -23,8 +19,32 @@
     </label>
 
     <label>
+      Data
+      <input formControlName="date" type="date" />
+    </label>
+
+    <label>
+      Hora
+      <input formControlName="time" type="time" />
+    </label>
+
+    <label>
+      Motivo
+      <input formControlName="reason" type="text" />
+    </label>
+
+    <label>
       Observações
       <textarea formControlName="notes"></textarea>
+    </label>
+
+    <label>
+      Status
+      <select formControlName="status">
+        <option value="scheduled">Agendada</option>
+        <option value="completed">Concluída</option>
+        <option value="canceled">Cancelada</option>
+      </select>
     </label>
 
     <div class="buttons">

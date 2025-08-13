@@ -10,9 +10,12 @@
       <tr>
         <th>ID</th>
         <th>Paciente ID</th>
-        <th>Data e Hora</th>
-        <th>Médico</th>
+        <th>Médico ID</th>
+        <th>Data</th>
+        <th>Hora</th>
         <th>Especialidade</th>
+        <th>Motivo</th>
+        <th>Status</th>
         <th>Ações</th>
       </tr>
     </thead>
@@ -20,9 +23,12 @@
       <tr *ngFor="let appointment of appointments">
         <td>{{ appointment.id }}</td>
         <td>{{ appointment.patient_id }}</td>
-        <td>{{ appointment.date | date: 'dd/MM/yyyy HH:mm' }}</td>
-        <td>{{ appointment.doctor }}</td>
+        <td>{{ appointment.doctor_id }}</td>
+        <td>{{ appointment.date | date: 'dd/MM/yyyy' }}</td>
+        <td>{{ appointment.time }}</td>
         <td>{{ appointment.specialty }}</td>
+        <td>{{ appointment.reason }}</td>
+        <td>{{ appointment.status }}</td>
         <td>
           <button [routerLink]="['/appointments/edit', appointment.id]">Editar</button>
           <button (click)="deleteAppointment(appointment.id)">Deletar</button>

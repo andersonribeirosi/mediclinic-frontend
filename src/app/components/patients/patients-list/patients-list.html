@@ -11,8 +11,8 @@
         <th>Nome</th>
         <th>CPF</th>
         <th>Telefone</th>
-        <th>Especialidade</th>
-        <th>Data Consulta</th>
+        <th>Email</th>
+        <th>Cidade/Estado</th>
         <th>Ações</th>
       </tr>
     </thead>
@@ -21,8 +21,8 @@
         <td>{{ p.name }}</td>
         <td>{{ p.cpf }}</td>
         <td>{{ p.phone }}</td>
-        <td>{{ p.specialty }}</td>
-        <td>{{ p.service_date | date: 'dd/MM/yy' }}</td>
+        <td>{{ p.email }}</td>
+        <td>{{ p.city }}/{{ p.state }}</td>
         <td>
           <button [routerLink]="['/patients/edit', p.id]">Editar</button>
           <button (click)="deletePatient(p.id)">Deletar</button>

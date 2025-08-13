@@ -1,0 +1,37 @@
+<div class="doctors-container">
+  <h2>Médicos</h2>
+  <button routerLink="/doctors/new">Novo Médico</button>
+
+  <p *ngIf="loading">Carregando médicos...</p>
+  <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+
+  <table *ngIf="!loading && doctors.length > 0">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>CRM</th>
+        <th>UF</th>
+        <th>Especialidade</th>
+        <th>Telefone</th>
+        <th>Email</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let d of doctors">
+        <td>{{ d.name }}</td>
+        <td>{{ d.crm_number }}</td>
+        <td>{{ d.crm_uf }}</td>
+        <td>{{ d.specialty }}</td>
+        <td>{{ d.phone }}</td>
+        <td>{{ d.email }}</td>
+        <td>
+          <button [routerLink]="['/doctors/edit', d.id]">Editar</button>
+          <button (click)="deleteDoctor(d.id)">Deletar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p *ngIf="!loading && doctors.length === 0">Nenhum médico encontrado.</p>
+</div>

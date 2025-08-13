@@ -11,20 +11,98 @@
       CPF
       <input formControlName="cpf" type="text" />
     </label>
-   
+
+    <label>
+      RG
+      <input formControlName="rg" type="text" />
+    </label>
+
+    <label>
+      Data de Nascimento
+      <input formControlName="birth_date" type="date" />
+    </label>
+
+    <label>
+      Gênero
+      <select formControlName="gender">
+        <option value="">Selecione</option>
+        <option value="male">Masculino</option>
+        <option value="female">Feminino</option>
+        <option value="other">Outro</option>
+      </select>
+    </label>
+
     <label>
       Telefone
       <input formControlName="phone" type="text" />
     </label>
 
     <label>
-      Especialidade
-      <input formControlName="specialty" type="text" />
+      Email
+      <input formControlName="email" type="email" />
+    </label>
+
+    <h3>Endereço</h3>
+    <label>
+      Rua
+      <input formControlName="address_street" type="text" />
+    </label>
+    <label>
+      Número
+      <input formControlName="address_number" type="text" />
+    </label>
+    <label>
+      Complemento
+      <input formControlName="address_complement" type="text" />
+    </label>
+    <label>
+      Bairro
+      <input formControlName="address_neighborhood" type="text" />
+    </label>
+    <label>
+      Cidade
+      <input formControlName="address_city" type="text" />
+    </label>
+    <label>
+      Estado
+      <input formControlName="address_state" type="text" />
+    </label>
+    <label>
+      CEP
+      <input formControlName="address_zip" type="text" />
+    </label>
+
+    <h3>Contato de Emergência</h3>
+    <label>
+      Nome
+      <input formControlName="emergency_name" type="text" />
+    </label>
+    <label>
+      Telefone
+      <input formControlName="emergency_phone" type="text" />
+    </label>
+    <label>
+      Relação
+      <input formControlName="emergency_relationship" type="text" />
+    </label>
+
+    <h3>Plano de Saúde</h3>
+    <label>
+      Nome do Plano
+      <input formControlName="health_plan_name" type="text" />
+    </label>
+    <label>
+      Número do Cartão
+      <input formControlName="health_plan_card_number" type="text" />
+    </label>
+    <label>
+      Validade
+      <input formControlName="health_plan_validity" type="month" />
     </label>
 
     <label>
-      Data Atendimento
-      <input formControlName="service_date" type="date" />
+      Observações
+      <textarea formControlName="observations"></textarea>
     </label>
 
     <div class="buttons">

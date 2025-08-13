@@ -24,15 +24,18 @@ export class AppointmentFormComponent implements OnInit {
     private appointmentsService: AppointmentsService,
     private router: Router,
     private route: ActivatedRoute
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.appointmentForm = this.fb.group({
       patient_id: ['', Validators.required],
+      doctor_id: ['', Validators.required],
+      specialty: [''],
       date: ['', Validators.required],
-      doctor: ['', Validators.required],
-      specialty: ['', Validators.required],
+      time: ['', Validators.required],
+      reason: [''],
       notes: [''],
+      status: ['scheduled'],
     });
 
     this.appointmentId = Number(this.route.snapshot.paramMap.get('id'));
@@ -48,10 +51,13 @@ export class AppointmentFormComponent implements OnInit {
       next: (appointment) => {
         this.appointmentForm.patchValue({
           patient_id: appointment.patient_id,
-          date: appointment.date.substring(0, 16), // 'yyyy-MM-ddTHH:mm' formato para datetime-local
-          doctor: appointment.doctor,
+          doctor_id: appointment.doctor_id,
           specialty: appointment.specialty,
+          date: appointment.date,
+          time: appointment.time,
+          reason: appointment.reason,
           notes: appointment.notes,
+          status: appointment.status || 'scheduled',
         });
         this.loading = false;
       },
@@ -62,13 +68,27 @@ export class AppointmentFormComponent implements OnInit {
     });
   }
 
+  private mapFormToAppointment(): Appointment {
+    const form = this.appointmentForm.value;
+    return {
+      patient_id: form.patient_id,
+      doctor_id: form.doctor_id,
+      specialty: form.specialty,
+      date: form.date,
+      time: form.time,
+      reason: form.reason,
+      notes: form.notes,
+      status: form.status,
+    };
+  }
+
   onSubmit(): void {
     if (this.appointmentForm.invalid) return;
 
     this.loading = true;
     this.errorMessage = '';
 
-    const appointmentData: Appointment = this.appointmentForm.value;
+    const appointmentData: Appointment = this.mapFormToAppointment();
 
     if (this.appointmentId) {
       this.appointmentsService.update(this.appointmentId, appointmentData).subscribe({
