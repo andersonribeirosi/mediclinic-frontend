@@ -24,7 +24,7 @@ export class AppointmentFormComponent implements OnInit {
     private appointmentsService: AppointmentsService,
     private router: Router,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.appointmentForm = this.fb.group({
@@ -91,6 +91,7 @@ export class AppointmentFormComponent implements OnInit {
     const appointmentData: Appointment = this.mapFormToAppointment();
 
     if (this.appointmentId) {
+      appointmentData.date = appointmentData.date.split('T')[0]
       this.appointmentsService.update(this.appointmentId, appointmentData).subscribe({
         next: () => {
           this.loading = false;
