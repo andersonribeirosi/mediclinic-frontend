@@ -78,7 +78,7 @@ export class AppointmentsListComponent implements OnInit {
         this.loading = false;
       },
       error: (err) => {
-        this.errorMessage = 'Erro ao carregar pacientes';
+        this.errorMessage = 'Erro ao carregar médicos';
         console.error(err);
         this.loading = false;
       }
@@ -86,12 +86,7 @@ export class AppointmentsListComponent implements OnInit {
   }
 
   getPatientName(id: number): string {
-    console.log('getPatientName');
-    
-    var find = this.patients?.find(p => p.id === id)?.name || '—'
-    console.log(find);
-    
-    return find;
+    return this.patients?.find(p => p.id === id)?.name || '—';
   }
 
   getDoctorName(id: number): string {
