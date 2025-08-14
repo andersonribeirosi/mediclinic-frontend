@@ -17,7 +17,6 @@ export const routes: Routes = [
     component: MainLayoutComponent,
     canActivate: [AuthGuard],
     children: [
-      
       { path: 'patients', component: PatientsListComponent },
       { path: 'patients/new', component: PatientFormComponent },
       { path: 'patients/edit/:id', component: PatientFormComponent },

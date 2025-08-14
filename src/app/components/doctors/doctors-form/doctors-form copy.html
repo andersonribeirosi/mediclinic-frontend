@@ -1,0 +1,47 @@
+<div class="doctor-form-container">
+  <h2>{{ doctorId ? 'Editar Médico' : 'Novo Médico' }}</h2>
+
+  <form [formGroup]="doctorForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Nome</mat-label>
+      <input matInput formControlName="name" type="text" />
+    </mat-form-field>
+    
+    <label>
+      Nome
+      <input formControlName="name" type="text" />
+    </label>
+
+    <label>
+      CRM
+      <input formControlName="crm_number" type="text" />
+    </label>
+
+    <label>
+      UF do CRM
+      <input formControlName="crm_uf" type="text" maxlength="2" />
+    </label>
+
+    <label>
+      Especialidade
+      <input formControlName="specialty" type="text" />
+    </label>
+
+    <label>
+      Telefone
+      <input formControlName="phone" type="text" />
+    </label>
+
+    <label>
+      Email
+      <input formControlName="email" type="email" />
+    </label>
+
+    <div class="buttons">
+      <button type="submit" [disabled]="loading">Salvar</button>
+      <button type="button" (click)="cancel()" [disabled]="loading">Cancelar</button>
+    </div>
+
+    <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+  </form>
+</div>

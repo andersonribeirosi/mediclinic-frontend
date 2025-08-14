@@ -4,11 +4,20 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ActivatedRoute, Router } from '@angular/router';
 import { Doctor } from '../../../models/doctor.model';
 import { DoctorsService } from '../../../services/doctors.service';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-doctor-form',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule
+  ],
   templateUrl: './doctors-form.html',
   styleUrls: ['./doctors-form.scss'],
 })
@@ -25,6 +34,91 @@ export class DoctorFormComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute
   ) { }
+
+  states = [
+    { acronym: 'AC', state: 'Acre' },
+    { acronym: 'AL', state: 'Alagoas' },
+    { acronym: 'AP', state: 'Amapá' },
+    { acronym: 'AM', state: 'Amazonas' },
+    { acronym: 'BA', state: 'Bahia' },
+    { acronym: 'CE', state: 'Ceará' },
+    { acronym: 'DF', state: 'Distrito Federal' },
+    { acronym: 'ES', state: 'Espírito Santo' },
+    { acronym: 'GO', state: 'Goiás' },
+    { acronym: 'MA', state: 'Maranhão' },
+    { acronym: 'MT', state: 'Mato Grosso' },
+    { acronym: 'MS', state: 'Mato Grosso do Sul' },
+    { acronym: 'MG', state: 'Minas Gerais' },
+    { acronym: 'PA', state: 'Pará' },
+    { acronym: 'PB', state: 'Paraíba' },
+    { acronym: 'PR', state: 'Paraná' },
+    { acronym: 'PE', state: 'Pernambuco' },
+    { acronym: 'PI', state: 'Piauí' },
+    { acronym: 'RJ', state: 'Rio de Janeiro' },
+    { acronym: 'RN', state: 'Rio Grande do Norte' },
+    { acronym: 'RS', state: 'Rio Grande do Sul' },
+    { acronym: 'RO', state: 'Rondônia' },
+    { acronym: 'RR', state: 'Roraima' },
+    { acronym: 'SC', state: 'Santa Catarina' },
+    { acronym: 'SP', state: 'São Paulo' },
+    { acronym: 'SE', state: 'Sergipe' },
+    { acronym: 'TO', state: 'Tocantins' }
+  ];
+
+  specialties = [
+    { specialty: 'Alergologia e Imunologia' },
+    { specialty: 'Anestesiologia' },
+    { specialty: 'Angiologia' },
+    { specialty: 'Cardiologia' },
+    { specialty: 'Cirurgia Cardiovascular' },
+    { specialty: 'Cirurgia da Mão' },
+    { specialty: 'Cirurgia de Cabeça e Pescoço' },
+    { specialty: 'Cirurgia do Aparelho Digestivo' },
+    { specialty: 'Cirurgia Geral' },
+    { specialty: 'Cirurgia Pediátrica' },
+    { specialty: 'Cirurgia Plástica' },
+    { specialty: 'Cirurgia Torácica' },
+    { specialty: 'Cirurgia Vascular' },
+    { specialty: 'Clínica Médica' },
+    { specialty: 'Coloproctologia' },
+    { specialty: 'Dermatologia' },
+    { specialty: 'Endocrinologia e Metabologia' },
+    { specialty: 'Endoscopia' },
+    { specialty: 'Gastroenterologia' },
+    { specialty: 'Genética Médica' },
+    { specialty: 'Geriatria' },
+    { specialty: 'Ginecologia e Obstetrícia' },
+    { specialty: 'Hematologia e Hemoterapia' },
+    { specialty: 'Homeopatia' },
+    { specialty: 'Infectologia' },
+    { specialty: 'Mastologia' },
+    { specialty: 'Medicina de Emergência' },
+    { specialty: 'Medicina de Família e Comunidade' },
+    { specialty: 'Medicina do Trabalho' },
+    { specialty: 'Medicina Esportiva' },
+    { specialty: 'Medicina Física e Reabilitação' },
+    { specialty: 'Medicina Intensiva' },
+    { specialty: 'Medicina Legal e Perícia Médica' },
+    { specialty: 'Medicina Nuclear' },
+    { specialty: 'Medicina Preventiva e Social' },
+    { specialty: 'Nefrologia' },
+    { specialty: 'Neurocirurgia' },
+    { specialty: 'Neurologia' },
+    { specialty: 'Nutrologia' },
+    { specialty: 'Oftalmologia' },
+    { specialty: 'Oncologia Clínica' },
+    { specialty: 'Ortopedia e Traumatologia' },
+    { specialty: 'Otorrinolaringologia' },
+    { specialty: 'Patologia' },
+    { specialty: 'Patologia Clínica/Medicina Laboratorial' },
+    { specialty: 'Pediatria' },
+    { specialty: 'Pneumologia' },
+    { specialty: 'Psiquiatria' },
+    { specialty: 'Radiologia e Diagnóstico por Imagem' },
+    { specialty: 'Radioterapia' },
+    { specialty: 'Reumatologia' },
+    { specialty: 'Urologia' }
+  ];
 
   ngOnInit(): void {
     this.doctorForm = this.fb.group({
@@ -65,13 +159,15 @@ export class DoctorFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.doctorForm.invalid) return;
+    // if (this.doctorForm.invalid) return;
 
     this.loading = true;
     this.errorMessage = '';
 
     const doctorData: Doctor = this.doctorForm.value;
 
+    console.log(doctorData);
+    
     if (this.doctorId) {
       this.doctorsService.update(this.doctorId, doctorData).subscribe({
         next: () => {

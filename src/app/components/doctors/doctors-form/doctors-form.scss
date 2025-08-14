@@ -1,5 +1,6 @@
 .doctor-form-container {
-  max-width: 400px;
+  // max-width: 400px;
+  max-width: 50%;
   margin: 40px auto;
   padding: 20px;
   background: white;
@@ -46,4 +47,26 @@
     margin-top: 12px;
     text-align: center;
   }
+}
+
+.full-width {
+  width: 100%;
+}
+
+mat-form-field.full-width {
+  width: 100%;
+  font-size: 16px; /* aumenta o texto */
+}
+
+.mat-mdc-text-field-wrapper {
+  height: 56px; /* altura padrão é ~48px, aqui aumentamos */
+}
+
+.mat-mdc-input-element,
+textarea.mat-mdc-input-element {
+  font-size: 16px; /* aumenta o texto digitado */
+}
+
+textarea.mat-mdc-input-element {
+  min-height: 120px; /* para o campo Observações ficar maior */
 }

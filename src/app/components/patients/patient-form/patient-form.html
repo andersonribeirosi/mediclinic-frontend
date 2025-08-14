@@ -2,108 +2,127 @@
   <h2>{{ patientId ? 'Editar Paciente' : 'Novo Paciente' }}</h2>
 
   <form [formGroup]="patientForm" (ngSubmit)="onSubmit()">
-    <label>
-      Nome
-      <input formControlName="name" type="text" />
-    </label>
 
-    <label>
-      CPF
-      <input formControlName="cpf" type="text" />
-    </label>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Nome</mat-label>
+      <input matInput formControlName="name" type="text" />
+    </mat-form-field>
 
-    <label>
-      RG
-      <input formControlName="rg" type="text" />
-    </label>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>CPF</mat-label>
+      <input matInput formControlName="cpf" type="text" />
+    </mat-form-field>
 
-    <label>
-      Data de Nascimento
-      <input formControlName="birth_date" type="date" />
-    </label>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>RG</mat-label>
+      <input matInput formControlName="rg" type="text" />
+    </mat-form-field>
 
-    <label>
-      Gênero
-      <select formControlName="gender">
-        <option value="">Selecione</option>
-        <option value="male">Masculino</option>
-        <option value="female">Feminino</option>
-        <option value="other">Outro</option>
-      </select>
-    </label>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Data de Nascimento</mat-label>
+      <input matInput formControlName="birth_date" type="date" />
+    </mat-form-field>
 
-    <label>
-      Telefone
-      <input formControlName="phone" type="text" />
-    </label>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Gênero</mat-label>
+      <mat-select formControlName="gender">
+        <mat-option value="">Selecione</mat-option>
+        <mat-option value="male">Masculino</mat-option>
+        <mat-option value="female">Feminino</mat-option>
+        <mat-option value="other">Outro</mat-option>
+      </mat-select>
+    </mat-form-field>
 
-    <label>
-      Email
-      <input formControlName="email" type="email" />
-    </label>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Telefone</mat-label>
+      <input matInput formControlName="phone" type="text" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" type="email" />
+    </mat-form-field>
 
     <h3>Endereço</h3>
-    <label>
-      Rua
-      <input formControlName="address_street" type="text" />
-    </label>
-    <label>
-      Número
-      <input formControlName="address_number" type="text" />
-    </label>
-    <label>
-      Complemento
-      <input formControlName="address_complement" type="text" />
-    </label>
-    <label>
-      Bairro
-      <input formControlName="address_neighborhood" type="text" />
-    </label>
-    <label>
-      Cidade
-      <input formControlName="address_city" type="text" />
-    </label>
-    <label>
-      Estado
-      <input formControlName="address_state" type="text" />
-    </label>
-    <label>
-      CEP
-      <input formControlName="address_zip" type="text" />
-    </label>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Rua</mat-label>
+      <input matInput formControlName="address_street" type="text" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Número</mat-label>
+      <input matInput formControlName="address_number" type="text" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Complemento</mat-label>
+      <input matInput formControlName="address_complement" type="text" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Bairro</mat-label>
+      <input matInput formControlName="address_neighborhood" type="text" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Cidade</mat-label>
+      <input matInput formControlName="address_city" type="text" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Estado</mat-label>
+      <mat-select formControlName="address_state">
+        <mat-option value="">Selecione</mat-option>
+        <mat-option *ngFor="let uf of states" [value]="uf.acronym">{{ uf.acronym }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>CEP</mat-label>
+      <input matInput formControlName="address_zip" type="text" />
+    </mat-form-field>
 
     <h3>Contato de Emergência</h3>
-    <label>
-      Nome
-      <input formControlName="emergency_name" type="text" />
-    </label>
-    <label>
-      Telefone
-      <input formControlName="emergency_phone" type="text" />
-    </label>
-    <label>
-      Relação
-      <input formControlName="emergency_relationship" type="text" />
-    </label>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Nome</mat-label>
+      <input matInput formControlName="emergency_name" type="text" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Telefone</mat-label>
+      <input matInput formControlName="emergency_phone" type="text" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Relação</mat-label>
+      <input matInput formControlName="emergency_relationship" type="text" />
+    </mat-form-field>
 
     <h3>Plano de Saúde</h3>
-    <label>
-      Nome do Plano
-      <input formControlName="health_plan_name" type="text" />
-    </label>
-    <label>
-      Número do Cartão
-      <input formControlName="health_plan_card_number" type="text" />
-    </label>
-    <label>
-      Validade
-      <input formControlName="health_plan_validity" type="month" />
-    </label>
 
-    <label>
-      Observações
-      <textarea formControlName="observations"></textarea>
-    </label>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Nome do Plano</mat-label>
+      <input matInput formControlName="health_plan_name" type="text" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Número do Cartão</mat-label>
+      <input matInput formControlName="health_plan_card_number" type="text" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Validade</mat-label>
+      <input matInput formControlName="health_plan_validity" type="month" />
+    </mat-form-field>
+
+    <h3>Observações do Paciente</h3>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Observações</mat-label>
+      <textarea matInput formControlName="observations"></textarea>
+    </mat-form-field>
 
     <div class="buttons">
       <button type="submit" [disabled]="loading">Salvar</button>

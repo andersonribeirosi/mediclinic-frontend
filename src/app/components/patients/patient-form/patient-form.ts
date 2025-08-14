@@ -4,11 +4,19 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Patient } from '../../../models/patient.model';
 import { PatientsService } from '../../../services/patients.service';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-patient-form',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule],
   templateUrl: './patient-form.html',
   styleUrls: ['./patient-form.scss'],
 })
@@ -120,7 +128,6 @@ export class PatientFormComponent implements OnInit {
     });
   }
 
-
   private mapFormToPatient(): Patient {
     const form = this.patientForm.value;
     return {
@@ -147,6 +154,37 @@ export class PatientFormComponent implements OnInit {
       observations: form.observations,
     };
   }
+
+  states = [
+    { acronym: 'AC', state: 'Acre' },
+    { acronym: 'AL', state: 'Alagoas' },
+    { acronym: 'AP', state: 'Amapá' },
+    { acronym: 'AM', state: 'Amazonas' },
+    { acronym: 'BA', state: 'Bahia' },
+    { acronym: 'CE', state: 'Ceará' },
+    { acronym: 'DF', state: 'Distrito Federal' },
+    { acronym: 'ES', state: 'Espírito Santo' },
+    { acronym: 'GO', state: 'Goiás' },
+    { acronym: 'MA', state: 'Maranhão' },
+    { acronym: 'MT', state: 'Mato Grosso' },
+    { acronym: 'MS', state: 'Mato Grosso do Sul' },
+    { acronym: 'MG', state: 'Minas Gerais' },
+    { acronym: 'PA', state: 'Pará' },
+    { acronym: 'PB', state: 'Paraíba' },
+    { acronym: 'PR', state: 'Paraná' },
+    { acronym: 'PE', state: 'Pernambuco' },
+    { acronym: 'PI', state: 'Piauí' },
+    { acronym: 'RJ', state: 'Rio de Janeiro' },
+    { acronym: 'RN', state: 'Rio Grande do Norte' },
+    { acronym: 'RS', state: 'Rio Grande do Sul' },
+    { acronym: 'RO', state: 'Rondônia' },
+    { acronym: 'RR', state: 'Roraima' },
+    { acronym: 'SC', state: 'Santa Catarina' },
+    { acronym: 'SP', state: 'São Paulo' },
+    { acronym: 'SE', state: 'Sergipe' },
+    { acronym: 'TO', state: 'Tocantins' }
+  ];
+
 
   onSubmit(): void {
     if (this.patientForm.invalid) return;
