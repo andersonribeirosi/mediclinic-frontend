@@ -1,8 +1,8 @@
 <header class="toolbar">
- <div style="width: 100%; display: flex; justify-content: space-between;">
-  <div class="toolbar-title">MediClinic</div>
-  <div class="toolbar-title" style="cursor: pointer;" (click)="logout()">Sair</div>
- </div>
+  <div style="width: 100%; display: flex; justify-content: space-between;">
+    <div class="toolbar-title">MediClinic</div>
+    <div  style="font-size: 15px; cursor: pointer;" (click)="logout()">Sair</div>
+  </div>
 </header>
 
 <div class="main-container">
@@ -10,8 +10,8 @@
     <ul>
       <li><a routerLink="/patients" routerLinkActive="active">Pacientes</a></li>
       <li><a routerLink="/doctors" routerLinkActive="active">Médicos</a></li>
+      <li><a routerLink="/specialties" routerLinkActive="active">Especialidades</a></li>
       <li><a routerLink="/appointments" routerLinkActive="active">Consultas</a></li>
-      <li><a routerLink="/professionals" routerLinkActive="active">Profissionais</a></li>
     </ul>
   </nav>
 

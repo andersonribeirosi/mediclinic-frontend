@@ -8,6 +8,8 @@ import { AppointmentFormComponent } from './components/appointments/appointment-
 import { AppointmentsListComponent } from './components/appointments/appointment-list/appointment-list';
 import { DoctorsListComponent } from './components/doctors/doctors-list/doctors-list';
 import { DoctorFormComponent } from './components/doctors/doctors-form/doctors-form';
+import { SpecialtiesList as SpecialtiesListComponent } from './components/specialties/specialties-list/specialties-list';
+import { SpecialtiesForm as SpecialtiesFormComponent } from './components/specialties/specialties-form/specialties-form';
 
 
 export const routes: Routes = [
@@ -21,13 +23,18 @@ export const routes: Routes = [
       { path: 'patients/new', component: PatientFormComponent },
       { path: 'patients/edit/:id', component: PatientFormComponent },
 
+      { path: 'doctors', component: DoctorsListComponent },
+      { path: 'doctors/new', component: DoctorFormComponent },
+      { path: 'doctors/edit/:id', component: DoctorFormComponent },
+    
+      { path: 'specialties', component: SpecialtiesListComponent },
+      { path: 'specialties/new', component: SpecialtiesFormComponent},
+      { path: 'specialties/edit/:id', component: SpecialtiesFormComponent },
+
       { path: 'appointments', component: AppointmentsListComponent },
       { path: 'appointments/new', component: AppointmentFormComponent },
       { path: 'appointments/edit/:id', component: AppointmentFormComponent },
     
-      { path: 'doctors', component: DoctorsListComponent },
-      { path: 'doctors/new', component: DoctorFormComponent },
-      { path: 'doctors/edit/:id', component: DoctorFormComponent },
       // outras rotas aqui...
       { path: '', redirectTo: 'patients', pathMatch: 'full' },
     ],
