@@ -9,8 +9,8 @@
     <thead>
       <tr>
         <th>ID</th>
-        <th>Paciente ID</th>
-        <th>Médico ID</th>
+        <th>Paciente</th>
+        <th>Médico</th>
         <th>Data</th>
         <th>Hora</th>
         <th>Especialidade</th>
@@ -22,13 +22,13 @@
     <tbody>
       <tr *ngFor="let appointment of appointments">
         <td>{{ appointment.id }}</td>
-        <td>{{ appointment.patient_id }}</td>
-        <td>{{ appointment.doctor_id }}</td>
+        <td>{{ getPatientName(appointment.patient_id) }}</td>
+        <td>{{ getDoctorName(appointment.doctor_id) }}</td>
         <td>{{ appointment.date | date: 'dd/MM/yyyy' }}</td>
         <td>{{ appointment.time }}</td>
         <td>{{ appointment.specialty }}</td>
         <td>{{ appointment.reason }}</td>
-        <td>{{ appointment.status }}</td>
+        <td>{{ appointment.status === 'scheduled' ? 'Agendada' : (appointment.status === 'completed' ? 'Concluída' : 'Cancelada') }}</td>
         <td>
           <button [routerLink]="['/appointments/edit', appointment.id]">Editar</button>
           <button (click)="deleteAppointment(appointment.id)">Deletar</button>

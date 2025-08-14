@@ -4,6 +4,10 @@ import { Router, RouterLink } from '@angular/router';
 import { Appointment } from '../../../models/appointment.model';
 import { AppointmentsService } from '../../../services/appointments.service';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DoctorsService } from '../../../services/doctors.service';
+import { PatientsService } from '../../../services/patients.service';
+import { Doctor } from '../../../models/doctor.model';
+import { Patient } from '../../../models/patient.model';
 
 @Component({
   selector: 'app-appointments-list',
@@ -14,13 +18,22 @@ import { ReactiveFormsModule } from '@angular/forms';
 })
 export class AppointmentsListComponent implements OnInit {
   appointments: Appointment[] = [];
+  patients: Patient[] = [];
+  doctors: Doctor[] = [];
   loading = false;
   errorMessage = '';
 
-  constructor(private appointmentsService: AppointmentsService, private router: Router) { }
+  constructor(
+    private appointmentsService: AppointmentsService,
+    private router: Router,
+    private doctorsService: DoctorsService,
+    private patientsService: PatientsService,
+  ) { }
 
   ngOnInit(): void {
     this.loadAppointments();
+    this.loadDoctors()
+    this.loadPatients()
   }
 
   loadAppointments(): void {
@@ -36,6 +49,53 @@ export class AppointmentsListComponent implements OnInit {
         this.loading = false;
       },
     });
+  }
+
+  loadPatients(): void {
+    this.loading = true;
+    this.errorMessage = '';
+
+    this.patientsService.getAll().subscribe({
+      next: (patients) => {
+        this.patients = patients;
+        this.loading = false;
+      },
+      error: (err) => {
+        this.errorMessage = 'Erro ao carregar pacientes';
+        console.error(err);
+        this.loading = false;
+      }
+    });
+  }
+
+  loadDoctors(): void {
+    this.loading = true;
+    this.errorMessage = '';
+
+    this.doctorsService.getAll().subscribe({
+      next: (doctors) => {
+        this.doctors = doctors;
+        this.loading = false;
+      },
+      error: (err) => {
+        this.errorMessage = 'Erro ao carregar pacientes';
+        console.error(err);
+        this.loading = false;
+      }
+    });
+  }
+
+  getPatientName(id: number): string {
+    console.log('getPatientName');
+    
+    var find = this.patients?.find(p => p.id === id)?.name || '—'
+    console.log(find);
+    
+    return find;
+  }
+
+  getDoctorName(id: number): string {
+    return this.doctors?.find(d => d.id === id)?.name || '—';
   }
 
   deleteAppointment(id?: number): void {
