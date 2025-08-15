@@ -1,13 +1,14 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 import { Specialty } from '../models/specialty';
 
 @Injectable({ providedIn: 'root' })
 export class specialtiesService {
-  private apiUrl = 'http://localhost:3000/specialties';
+  private apiUrl = `${environment.apiUrl}/specialties`
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getAll(): Observable<Specialty[]> {
     return this.http.get<Specialty[]>(this.apiUrl);
