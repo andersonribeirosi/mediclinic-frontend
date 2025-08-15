@@ -1,1 +1,38 @@
-<p>specialties-list works!</p>
+<div class="specialties-container">
+  <h2>Médicos</h2>
+  <button routerLink="/specialties/new">Nova Especialidade</button>
+
+  @if(loading){
+  <p>Carregando especialidades...</p>
+  }
+
+  @if(errorMessage){
+  <p class="error">{{ errorMessage }}</p>
+  }
+
+  @if(!loading && specialties && specialties.length > 0){
+  <table>
+    <thead>
+      <tr>
+        <th>Especialidade</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(s of specialties; track s.id){
+      <tr>
+        <td>{{ s.name }}</td>
+        <td>
+          <button [routerLink]="['/specialties/edit', s.id]">Editar</button>
+          <button (click)="deleteSpecialty(s.id ?? 0)">Deletar</button>
+        </td>
+      </tr>
+      }
+
+    </tbody>
+  </table>
+  } @else{
+  <p>Nenhum médico encontrado.</p>
+  }
+
+</div>

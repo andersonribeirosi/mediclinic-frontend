@@ -1,0 +1,75 @@
+.specialty-form-container {
+  max-width: 50%;
+  margin: 40px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+
+  h2 {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 12px;
+
+    input {
+      width: 100%;
+      padding: 8px;
+      box-sizing: border-box;
+    }
+  }
+
+  .buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+
+    button {
+      padding: 10px 20px;
+      background: #1976d2;
+      border: none;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .error {
+    color: red;
+    margin-top: 12px;
+    text-align: center;
+  }
+}
+
+.full-width {
+  width: 100%;
+}
+
+mat-form-field.full-width {
+  width: 100%;
+  font-size: 16px; /* aumenta o texto */
+}
+
+.mat-mdc-text-field-wrapper {
+  height: 56px; /* altura padrão é ~48px, aqui aumentamos */
+}
+
+.mat-mdc-input-element,
+textarea.mat-mdc-input-element {
+  font-size: 16px; /* aumenta o texto digitado */
+  // padding: 12px 14px; /* mais espaço interno */
+}
+
+textarea.mat-mdc-input-element {
+  min-height: 120px; /* para o campo Observações ficar maior */
+}
+
+
+

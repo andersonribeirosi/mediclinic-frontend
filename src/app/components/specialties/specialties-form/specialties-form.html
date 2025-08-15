@@ -1,1 +1,21 @@
 <p>specialties-form works!</p>
+<div class="specialty-form-container">
+  <h2>{{ specialtyId ? 'Editar Especialidade' : 'Nova Especialidade' }}</h2>
+
+  <form [formGroup]="specialtyForm" (ngSubmit)="onSubmit()">
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Nome</mat-label>
+      <input matInput formControlName="name" type="text" />
+    </mat-form-field>
+
+    <div class="buttons">
+      <button type="submit" [disabled]="loading">Salvar</button>
+      <button type="button" (click)="cancel()" [disabled]="loading">Cancelar</button>
+    </div>
+
+    @if(errorMessage){
+    <p class="error">{{ errorMessage }}</p>
+    }
+  </form>
+</div>
