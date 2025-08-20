@@ -1,0 +1,17 @@
+version: '3'
+
+networks:
+  docker_default-network:
+    external: true
+
+services:
+  elfrarepfrontend:
+    build:
+      dockerfile: Dockerfile
+    image: "mediclinic-frontend"
+    container_name: mediclinic-frontend
+    restart: always
+    ports:
+      - "8992:80"  # mapeia porta 80 do container para 8992 da máquina
+    networks:
+      - docker_default-network
