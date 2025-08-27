@@ -3,11 +3,25 @@ import { Patient } from '../../../models/patient.model';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { PatientsService } from '../../../services/patients.service';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatTableModule } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 
 @Component({
   selector: 'app-patients-list',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [
+    CommonModule, RouterLink,
+    ReactiveFormsModule,
+    MatTableModule,
+    MatButtonModule,
+    MatIconModule,
+    MatPaginatorModule,
+    MatSortModule,
+  ],
   templateUrl: './patients-list.html',
   styleUrls: ['./patients-list.scss'],
 })
@@ -16,7 +30,7 @@ export class PatientsListComponent implements OnInit {
   loading = false;
   errorMessage = '';
 
-  constructor(private patientsService: PatientsService, private router: Router) {}
+  constructor(private patientsService: PatientsService, private router: Router) { }
 
   ngOnInit(): void {
     this.loadPatients();
