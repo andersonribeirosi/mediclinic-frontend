@@ -1,40 +1,96 @@
 <div class="appointments-container">
   <h2>Consultas</h2>
-  <button routerLink="/appointments/new">Nova Consulta</button>
+  <div style="display: flex; justify-content: end; width: 100%; padding-block: 10px">
+    <!-- Botão de adicionar -->
+    <button mat-icon-button color="primary" routerLink="/appointments/new" aria-label="Nova consulta">
+      <mat-icon>add</mat-icon>
+    </button>
 
-  <p *ngIf="loading">Carregando consultas...</p>
-  <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+    <!-- Botão de recarregar -->
+    <button mat-icon-button color="primary" (click)="loadAppointments()" aria-label="Recarregar consultas">
+      <mat-icon>refresh</mat-icon>
+    </button>
+  </div>
 
-  <table *ngIf="!loading && appointments.length > 0">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Paciente</th>
-        <th>Médico</th>
-        <th>Data</th>
-        <th>Hora</th>
-        <th>Especialidade</th>
-        <th>Motivo</th>
-        <th>Status</th>
-        <th>Ações</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let appointment of appointments">
-        <td>{{ appointment.id }}</td>
-        <td>{{ getPatientName(appointment.patient_id) }}</td>
-        <td>{{ getDoctorName(appointment.doctor_id) }}</td>
-        <td>{{ appointment.date | date: 'dd/MM/yyyy' }}</td>
-        <td>{{ appointment.time }}</td>
-        <td>{{ appointment.specialty }}</td>
-        <td>{{ appointment.reason }}</td>
-        <td>{{ appointment.status === 'scheduled' ? 'Agendada' : (appointment.status === 'completed' ? 'Concluída' : 'Cancelada') }}</td>
-        <td>
-          <button [routerLink]="['/appointments/edit', appointment.id]">Editar</button>
-          <button (click)="deleteAppointment(appointment.id)">Deletar</button>
-        </td>
-      </tr>
-    </tbody>
+  @if(loading){
+  <p>Carregando consultas...</p>
+  }
+
+  @if(errorMessage){
+  <p class="error">{{ errorMessage }}</p>
+  }
+
+  <table mat-table [dataSource]="appointments" class="mat-elevation-z8" *ngIf="!loading && appointments.length > 0">
+
+    <!-- ID -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef style="font-weight: bold">ID</th>
+      <td mat-cell *matCellDef="let appointment">{{ appointment.id }}</td>
+    </ng-container>
+
+    <!-- Paciente -->
+    <ng-container matColumnDef="paciente">
+      <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Paciente</th>
+      <td mat-cell *matCellDef="let appointment">{{ getPatientName(appointment.patient_id) }}</td>
+    </ng-container>
+
+    <!-- Médico -->
+    <ng-container matColumnDef="medico">
+      <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Médico</th>
+      <td mat-cell *matCellDef="let appointment">{{ getDoctorName(appointment.doctor_id) }}</td>
+    </ng-container>
+
+    <!-- Data -->
+    <ng-container matColumnDef="data">
+      <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Data</th>
+      <td mat-cell *matCellDef="let appointment">{{ appointment.date | date: 'dd/MM/yyyy' }}</td>
+    </ng-container>
+
+    <!-- Hora -->
+    <ng-container matColumnDef="hora">
+      <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Hora</th>
+      <td mat-cell *matCellDef="let appointment">{{ appointment.time }}</td>
+    </ng-container>
+
+    <!-- Especialidade -->
+    <ng-container matColumnDef="especialidade">
+      <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Especialidade</th>
+      <td mat-cell *matCellDef="let appointment">{{ appointment.specialty }}</td>
+    </ng-container>
+
+    <!-- Motivo -->
+    <ng-container matColumnDef="motivo">
+      <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Motivo</th>
+      <td mat-cell *matCellDef="let appointment">{{ appointment.reason }}</td>
+    </ng-container>
+
+    <!-- Status -->
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Status</th>
+      <td mat-cell *matCellDef="let appointment">
+        {{ appointment.status === 'scheduled' ? 'Agendada' :
+        (appointment.status === 'completed' ? 'Concluída' : 'Cancelada') }}
+      </td>
+    </ng-container>
+
+    <!-- Ações -->
+    <ng-container matColumnDef="acoes">
+      <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Ações</th>
+      <td mat-cell *matCellDef="let appointment" style="display: flex; justify-content: center;">
+        <button mat-icon-button color="primary" [routerLink]="['/appointments/edit', appointment.id]">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="deleteAppointment(appointment.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row
+      *matHeaderRowDef="['id','paciente','medico','data','hora','especialidade','motivo','status','acoes']"></tr>
+    <tr mat-row
+      *matRowDef="let row; columns: ['id','paciente','medico','data','hora','especialidade','motivo','status','acoes'];">
+    </tr>
   </table>
 
   <p *ngIf="!loading && appointments.length === 0">Nenhuma consulta encontrada.</p>

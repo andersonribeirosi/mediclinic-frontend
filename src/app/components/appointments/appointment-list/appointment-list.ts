@@ -8,11 +8,25 @@ import { DoctorsService } from '../../../services/doctors.service';
 import { PatientsService } from '../../../services/patients.service';
 import { Doctor } from '../../../models/doctor.model';
 import { Patient } from '../../../models/patient.model';
+import { MatTableModule } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 
 @Component({
   selector: 'app-appointments-list',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, RouterLink],
+  imports: [
+    ReactiveFormsModule,
+    CommonModule,
+    RouterLink,
+    MatTableModule,
+    MatButtonModule,
+    MatIconModule,
+    MatPaginatorModule,
+    MatSortModule
+  ],
   templateUrl: './appointment-list.html',
   styleUrls: ['./appointment-list.scss'],
 })

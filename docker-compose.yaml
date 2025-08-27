@@ -5,7 +5,7 @@ networks:
     external: true
 
 services:
-  elfrarepfrontend:
+  mediclinicfrontend:
     build:
       dockerfile: Dockerfile
     image: "mediclinic-frontend"
