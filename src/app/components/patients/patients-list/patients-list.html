@@ -20,7 +20,8 @@
   <p class="error">{{ errorMessage }}</p>
   }
 
-  <table mat-table [dataSource]="patients" class="mat-elevation-z8" *ngIf="!loading && patients.length > 0">
+  @if(!loading && patients.length > 0) {
+  <table mat-table [dataSource]="patients" class="mat-elevation-z8">
 
     <!-- ID -->
     <ng-container matColumnDef="nome">
@@ -69,6 +70,9 @@
     <tr mat-row *matRowDef="let row; columns: ['nome','cpf','telefone','email','cidadeEstado','acoes'];">
     </tr>
   </table>
+  }
+  @if (!loading && patients.length === 0){
+  <p>Nenhum paciente encontrado.</p>
+  }
 
-  <p *ngIf="!loading && patients.length === 0">Nenhum paciente encontrado.</p>
 </div>
