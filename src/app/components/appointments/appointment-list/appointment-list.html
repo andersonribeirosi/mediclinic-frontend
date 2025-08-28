@@ -1,97 +1,68 @@
 <div class="appointments-container">
   <h2>Consultas</h2>
+
+  <!-- =================== BOTÕES DE AÇÃO =================== -->
   <div style="display: flex; justify-content: end; width: 100%; padding-block: 10px">
-    <!-- Botão de adicionar -->
+    <!-- Botão para criar nova consulta -->
     <button mat-icon-button color="primary" routerLink="/appointments/new" aria-label="Nova consulta">
       <mat-icon>add</mat-icon>
     </button>
 
-    <!-- Botão de recarregar -->
+    <!-- Botão para recarregar lista de consultas -->
     <button mat-icon-button color="primary" (click)="loadAppointments()" aria-label="Recarregar consultas">
       <mat-icon>refresh</mat-icon>
     </button>
   </div>
 
-  @if(loading){
-  <p>Carregando consultas...</p>
-  }
+  <!-- =================== COMPONENTE TABLE (FILHO) =================== -->
+  <!-- Aqui o componente filho recebe:
+       - columns: configuração das colunas
+       - data: array de consultas
+       - loading: estado de carregamento
+       - errorMessage: mensagem de erro
+       - emptyMessage: mensagem caso não haja dados -->
+  <app-table [columns]="columns" [data]="appointments" [loading]="loading" [errorMessage]="errorMessage"
+    emptyMessage="Nenhuma consulta encontrada.">
 
-  @if(errorMessage){
-  <p class="error">{{ errorMessage }}</p>
-  }
+    <!-- =================== TEMPLATE CUSTOMIZADO PARA COLUNAS =================== -->
+    <!-- Este template será injetado no TableComponent via ContentChild -->
+    <!-- Cada célula de coluna verifica se existe template para customização -->
+    <ng-template #customTemplates let-row let-key="key">
+      <ng-container [ngSwitch]="key">
+        <!-- Exibe o nome do paciente em vez do ID -->
+        <ng-container *ngSwitchCase="'patient_id'">{{ getPatientName(row.patient_id) }}</ng-container>
 
-  <table mat-table [dataSource]="appointments" class="mat-elevation-z8" *ngIf="!loading && appointments.length > 0">
+        <!-- Exibe o nome do médico em vez do ID -->
+        <ng-container *ngSwitchCase="'doctor_id'">{{ getDoctorName(row.doctor_id) }}</ng-container>
 
-    <!-- ID -->
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef style="font-weight: bold">ID</th>
-      <td mat-cell *matCellDef="let appointment">{{ appointment.id }}</td>
-    </ng-container>
+        <!-- Formata a data da consulta -->
+        <ng-container *ngSwitchCase="'date'">{{ row.date | date:'dd/MM/yyyy' }}</ng-container>
 
-    <!-- Paciente -->
-    <ng-container matColumnDef="paciente">
-      <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Paciente</th>
-      <td mat-cell *matCellDef="let appointment">{{ getPatientName(appointment.patient_id) }}</td>
-    </ng-container>
+        <!-- Formata o status da consulta -->
+        <ng-container *ngSwitchCase="'status'">
+          {{ row.status === 'scheduled' ? 'Agendada' :
+          (row.status === 'completed' ? 'Concluída' : 'Cancelada') }}
+        </ng-container>
 
-    <!-- Médico -->
-    <ng-container matColumnDef="medico">
-      <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Médico</th>
-      <td mat-cell *matCellDef="let appointment">{{ getDoctorName(appointment.doctor_id) }}</td>
-    </ng-container>
+        <!-- Padrão: exibe valor direto do objeto -->
+        <ng-container *ngSwitchDefault>{{ row[key] }}</ng-container>
+      </ng-container>
+    </ng-template>
 
-    <!-- Data -->
-    <ng-container matColumnDef="data">
-      <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Data</th>
-      <td mat-cell *matCellDef="let appointment">{{ appointment.date | date: 'dd/MM/yyyy' }}</td>
-    </ng-container>
+    <!-- =================== TEMPLATE CUSTOMIZADO PARA AÇÕES =================== -->
+    <!-- Este template também é injetado no TableComponent via ContentChild -->
+    <!-- Ele será renderizado na coluna 'acoes' para cada linha -->
+    <ng-template #actionsTemplate let-appointment>
+      <!-- Botão para editar a consulta -->
+      <button mat-icon-button color="primary" [routerLink]="['/appointments/edit', appointment.id]">
+        <mat-icon>edit</mat-icon>
+      </button>
 
-    <!-- Hora -->
-    <ng-container matColumnDef="hora">
-      <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Hora</th>
-      <td mat-cell *matCellDef="let appointment">{{ appointment.time }}</td>
-    </ng-container>
+      <!-- Botão para deletar a consulta -->
+      <button mat-icon-button color="warn" (click)="deleteAppointment(appointment.id)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </ng-template>
 
-    <!-- Especialidade -->
-    <ng-container matColumnDef="especialidade">
-      <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Especialidade</th>
-      <td mat-cell *matCellDef="let appointment">{{ appointment.specialty }}</td>
-    </ng-container>
-
-    <!-- Motivo -->
-    <ng-container matColumnDef="motivo">
-      <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Motivo</th>
-      <td mat-cell *matCellDef="let appointment">{{ appointment.reason }}</td>
-    </ng-container>
-
-    <!-- Status -->
-    <ng-container matColumnDef="status">
-      <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Status</th>
-      <td mat-cell *matCellDef="let appointment">
-        {{ appointment.status === 'scheduled' ? 'Agendada' :
-        (appointment.status === 'completed' ? 'Concluída' : 'Cancelada') }}
-      </td>
-    </ng-container>
-
-    <!-- Ações -->
-    <ng-container matColumnDef="acoes">
-      <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Ações</th>
-      <td mat-cell *matCellDef="let appointment" style="display: flex; justify-content: center;">
-        <button mat-icon-button color="primary" [routerLink]="['/appointments/edit', appointment.id]">
-          <mat-icon>edit</mat-icon>
-        </button>
-        <button mat-icon-button color="warn" (click)="deleteAppointment(appointment.id)">
-          <mat-icon>delete</mat-icon>
-        </button>
-      </td>
-    </ng-container>
-
-    <tr mat-header-row
-      *matHeaderRowDef="['id','paciente','medico','data','hora','especialidade','motivo','status','acoes']"></tr>
-    <tr mat-row
-      *matRowDef="let row; columns: ['id','paciente','medico','data','hora','especialidade','motivo','status','acoes'];">
-    </tr>
-  </table>
-
-  <p *ngIf="!loading && appointments.length === 0">Nenhuma consulta encontrada.</p>
+  </app-table>
 </div>

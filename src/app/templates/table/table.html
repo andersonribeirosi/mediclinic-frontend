@@ -1,0 +1,63 @@
+<div class="table-wrapper">
+
+  <!-- =================== MENSAGEM DE CARREGAMENTO =================== -->
+  <!-- Exibe "Carregando..." enquanto a tabela está sendo carregada -->
+  <ng-container *ngIf="loading">
+    <p>Carregando...</p>
+  </ng-container>
+
+  <!-- =================== MENSAGEM DE ERRO =================== -->
+  <!-- Exibe mensagem de erro caso loading seja false e errorMessage tenha valor -->
+  <ng-container *ngIf="!loading && errorMessage">
+    <p class="error">{{ errorMessage }}</p>
+  </ng-container>
+
+  <!-- =================== TABELA DE DADOS =================== -->
+  <!-- Renderiza a tabela apenas se não estiver carregando e não houver erro -->
+  <ng-container *ngIf="!loading && !errorMessage">
+
+    <!-- Tabela Material Angular, vinculada à propriedade 'data' via dataSource -->
+    <table mat-table [dataSource]="data" class="mat-elevation-z8" *ngIf="data.length > 0">
+
+      <!-- =================== COLUNAS DINÂMICAS =================== -->
+      <!-- Geração automática de colunas com base no input 'columns' passado pelo pai -->
+      <ng-container *ngFor="let col of columns" [matColumnDef]="col.key">
+        <!-- Cabeçalho da coluna -->
+        <th mat-header-cell *matHeaderCellDef style="font-weight: bold">{{ col.label }}</th>
+
+        <!-- Célula da coluna -->
+        <td mat-cell *matCellDef="let element">
+          <!-- =================== INJEÇÃO DE TEMPLATE CUSTOM =================== -->
+          <!-- Verifica se o pai passou um template customizado para essa coluna -->
+          <!-- O template recebe:
+               - $implicit: a linha atual (element)
+               - key: a chave da coluna -->
+          <ng-container *ngTemplateOutlet="customTemplates; context: { $implicit: element, key: col.key }">
+          </ng-container>
+        </td>
+      </ng-container>
+
+      <!-- =================== COLUNA DE AÇÕES =================== -->
+      <!-- Só aparece se o pai forneceu o template actionsTemplate -->
+      <ng-container *ngIf="actionsTemplate" matColumnDef="acoes">
+        <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Ações</th>
+        <td mat-cell *matCellDef="let element" style="display:flex;justify-content:center;">
+          <!-- Injeta o template de ações passado pelo pai -->
+          <!-- Cada linha recebe seu contexto ($implicit = elemento da linha) -->
+          <ng-container *ngTemplateOutlet="actionsTemplate; context:{ $implicit: element }"></ng-container>
+        </td>
+      </ng-container>
+
+      <!-- =================== LINHAS =================== -->
+      <!-- Linha de cabeçalho -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <!-- Linhas do corpo da tabela -->
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+
+    <!-- =================== MENSAGEM DE TABELA VAZIA =================== -->
+    <!-- Caso não haja registros, exibe a mensagem passada pelo input emptyMessage -->
+    <p *ngIf="data.length === 0">{{ emptyMessage }}</p>
+  </ng-container>
+</div>
