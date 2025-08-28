@@ -1,37 +1,58 @@
 <div class="doctors-container">
   <h2>Médicos</h2>
-  <button routerLink="/doctors/new">Novo Médico</button>
+  <!-- =================== BOTÕES DE AÇÃO =================== -->
+  <div style="display: flex; justify-content: end; width: 100%; padding-block: 10px">
+    <!-- Botão para criar nova consulta -->
+    <button mat-icon-button color="primary" routerLink="/doctors/new" aria-label="Novo médico">
+      <mat-icon>add</mat-icon>
+    </button>
 
-  <p *ngIf="loading">Carregando médicos...</p>
-  <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+    <!-- Botão para recarregar lista de consultas -->
+    <button mat-icon-button color="primary" (click)="loadDoctors()" aria-label="Recarregar médicos">
+      <mat-icon>refresh</mat-icon>
+    </button>
+  </div>
 
-  <table *ngIf="!loading && doctors.length > 0">
-    <thead>
-      <tr>
-        <th>Nome</th>
-        <th>CRM</th>
-        <th>UF</th>
-        <th>Especialidade</th>
-        <th>Telefone</th>
-        <th>Email</th>
-        <th>Ações</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let d of doctors">
-        <td>{{ d.name }}</td>
-        <td>{{ d.crm_number }}</td>
-        <td>{{ d.crm_uf }}</td>
-        <td>{{ d.specialty }}</td>
-        <td>{{ d.phone }}</td>
-        <td>{{ d.email }}</td>
-        <td>
-          <button [routerLink]="['/doctors/edit', d.id]">Editar</button>
-          <button (click)="deleteDoctor(d.id)">Deletar</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  @if (loading){
+  <p>Carregando médicos...</p>
+  }
 
-  <p *ngIf="!loading && doctors.length === 0">Nenhum médico encontrado.</p>
+  @if (errorMessage){
+  <p class="error">{{ errorMessage }}</p>
+  }
+
+  <div style="margin-bottom: 20px; width: 250px;">
+    <mat-form-field appearance="outline" style="width: 100%;">
+      <mat-label>Filtrar por status</mat-label>
+      <mat-select [(value)]="statusFilter" (selectionChange)="applyFilter()">
+        <mat-option value="all">Todos</mat-option>
+        <mat-option value="active">Ativos</mat-option>
+        <mat-option value="inactive">Inativos</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+
+  <app-table [columns]="columns" [data]="filteredDoctors" [loading]="loading" [errorMessage]="errorMessage"
+    emptyMessage="Nenhuma consulta encontrada.">
+    <ng-template #customTemplates let-row let-key="key">
+      <ng-container [ngSwitch]="key">
+        <ng-container *ngSwitchDefault>{{ row[key] }}</ng-container>
+      </ng-container>
+    </ng-template>
+
+    <ng-template #actionsTemplate let-appointment>
+      <button mat-icon-button color="primary" [routerLink]="['/doctors/edit', appointment.id]">
+        <mat-icon>edit</mat-icon>
+      </button>
+
+      <button mat-icon-button color="warn" (click)="deleteDoctor(appointment.id)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </ng-template>
+  </app-table>
+
+  @if(!loading && doctors.length === 0){
+  <p>Nenhum médico encontrado.</p>
+  }
 </div>

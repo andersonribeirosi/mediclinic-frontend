@@ -8,4 +8,5 @@ export interface Doctor {
   email?: string;            // Email
   created_at?: string;       // Data de cadastro
   updated_at?: string;       // Última atualização
+  active?: boolean           // indica se o médico esta ativo ou inativo
 }
