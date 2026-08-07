@@ -1,5 +1,7 @@
-<div class="patient-form-container">
+<div class="title">
   <h2>{{ patientId ? 'Editar Paciente' : 'Novo Paciente' }}</h2>
+</div>
+<div class="patient-form-container">
 
   <form [formGroup]="patientForm" (ngSubmit)="onSubmit()">
 

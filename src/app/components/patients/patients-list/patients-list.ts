@@ -3,12 +3,14 @@ import { Patient } from '../../../models/patient.model';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { PatientsService } from '../../../services/patients.service';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { TableColumn, TableComponent } from '../../../templates/table/table';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-patients-list',
@@ -21,6 +23,10 @@ import { MatSortModule } from '@angular/material/sort';
     MatIconModule,
     MatPaginatorModule,
     MatSortModule,
+    TableComponent,
+    MatSelectModule,
+    FormsModule
+
   ],
   templateUrl: './patients-list.html',
   styleUrls: ['./patients-list.scss'],
@@ -29,6 +35,15 @@ export class PatientsListComponent implements OnInit {
   patients: Patient[] = [];
   loading = false;
   errorMessage = '';
+
+  columns: TableColumn[] = [
+    { key: 'name', label: 'Nome' },
+    { key: 'cpf', label: 'CPF' },
+    { key: 'phone', label: 'Telefone' },
+    { key: 'email', label: 'Email' },
+    { key: 'city', label: 'Cidade' },
+    { key: 'state', label: 'Estado' },
+  ];
 
   constructor(private patientsService: PatientsService, private router: Router) { }
 

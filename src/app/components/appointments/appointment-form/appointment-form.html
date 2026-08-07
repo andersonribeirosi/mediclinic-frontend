@@ -1,77 +1,76 @@
-<div class="appointment-form-container">
+<div class="title">
   <h2>{{ appointmentId ? 'Editar Consulta' : 'Nova Consulta' }}</h2>
-
-  <form [formGroup]="appointmentForm" (ngSubmit)="onSubmit()">
-
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Paciente</mat-label>
-      <mat-select formControlName="patient_id">
-        <mat-option value="">Selecione</mat-option>
-        <mat-option *ngFor="let p of patients" [value]="p.id">{{ p.name }}</mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Médico</mat-label>
-      <mat-select formControlName="doctor_id">
-        <mat-option value="">Selecione</mat-option>
-        <mat-option *ngFor="let d of doctors" [value]="d.id">{{ d.name }}</mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Especialidade</mat-label>
-      <mat-select formControlName="specialty">
-        <mat-option value="">Selecione</mat-option>
-        <mat-option *ngFor="let s of specialties" [value]="s.name">{{ s.name }}</mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Data</mat-label>
-    
-      <!-- Input ligado ao datepicker -->
-      <input matInput [matDatepicker]="picker" formControlName="date" placeholder="dd/MM/yyyy" />
-    
-      <!-- Ícone do calendário -->
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    
-      <!-- Componente Datepicker -->
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Hora</mat-label>
-      <input matInput formControlName="time" type="time" placeholder="Escolha a hora" />
-      <mat-icon matSuffix>schedule</mat-icon>
-    </mat-form-field>
-
-
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Motivo</mat-label>
-      <input matInput formControlName="reason" type="text" />
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Observações</mat-label>
-      <textarea matInput formControlName="notes" rows="4"></textarea>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Status</mat-label>
-      <mat-select formControlName="status">
-        <mat-option value="">Selecione</mat-option>
-        <mat-option value="scheduled">Agendada</mat-option>
-        <mat-option value="completed">Concluída</mat-option>
-        <mat-option value="canceled">Cancelada</mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <div class="buttons">
-      <button type="submit" [disabled]="loading">Salvar</button>
-      <button type="button" (click)="cancel()" [disabled]="loading">Cancelar</button>
-    </div>
-
-    <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
-  </form>
 </div>
+
+<form class="appointment-form-container" [formGroup]="appointmentForm" (ngSubmit)="onSubmit()">
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Paciente</mat-label>
+    <mat-select formControlName="patient_id">
+      <mat-option value="">Selecione</mat-option>
+      <mat-option *ngFor="let p of patients" [value]="p.id">{{ p.name }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Médico</mat-label>
+    <mat-select formControlName="doctor_id">
+      <mat-option value="">Selecione</mat-option>
+      <mat-option *ngFor="let d of doctors" [value]="d.id">{{ d.name }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Especialidade</mat-label>
+    <mat-select formControlName="specialty">
+      <mat-option value="">Selecione</mat-option>
+      <mat-option *ngFor="let s of specialties" [value]="s.name">{{ s.name }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Data</mat-label>
+
+    <!-- Input ligado ao datepicker -->
+    <input matInput [matDatepicker]="picker" formControlName="date" placeholder="dd/MM/yyyy" />
+
+    <!-- Ícone do calendário -->
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+
+    <!-- Componente Datepicker -->
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Hora</mat-label>
+    <input matInput formControlName="time" type="time" placeholder="Escolha a hora" />
+    <mat-icon matSuffix>schedule</mat-icon>
+  </mat-form-field>
+
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Motivo</mat-label>
+    <input matInput formControlName="reason" type="text" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Observações</mat-label>
+    <textarea matInput formControlName="notes" rows="4"></textarea>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Status</mat-label>
+    <mat-select formControlName="status">
+      <mat-option value="">Selecione</mat-option>
+      <mat-option value="scheduled">Agendada</mat-option>
+      <mat-option value="completed">Concluída</mat-option>
+      <mat-option value="canceled">Cancelada</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div class="buttons">
+    <button type="submit" [disabled]="loading">Salvar</button>
+    <button type="button" (click)="cancel()" [disabled]="loading">Cancelar</button>
+  </div>
+
+  <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+</form>

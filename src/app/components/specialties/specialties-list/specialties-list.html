@@ -1,6 +1,17 @@
 <div class="specialties-container">
-  <h2>Médicos</h2>
-  <button routerLink="/specialties/new">Nova Especialidade</button>
+  <h2>Especialidades</h2>
+  <!-- =================== BOTÕES DE AÇÃO =================== -->
+  <div style="display: flex; justify-content: end; width: 100%; padding-block: 10px">
+    <!-- Botão para criar nova especialidade -->
+    <button mat-icon-button color="primary" routerLink="/specialties/new" aria-label="Nova especialidade">
+      <mat-icon>add</mat-icon>
+    </button>
+
+    <!-- Botão para recarregar lista de especialidades -->
+    <button mat-icon-button color="primary" (click)="loadSpecialties()" aria-label="Recarregar especialidades">
+      <mat-icon>refresh</mat-icon>
+    </button>
+  </div>
 
   @if(loading){
   <p>Carregando especialidades...</p>
@@ -11,26 +22,24 @@
   }
 
   @if(!loading && specialties && specialties.length > 0){
-  <table>
-    <thead>
-      <tr>
-        <th>Especialidade</th>
-        <th>Ações</th>
-      </tr>
-    </thead>
-    <tbody>
-      @for(s of specialties; track s.id){
-      <tr>
-        <td>{{ s.name }}</td>
-        <td>
-          <button [routerLink]="['/specialties/edit', s.id]">Editar</button>
-          <button (click)="deleteSpecialty(s.id ?? 0)">Deletar</button>
-        </td>
-      </tr>
-      }
+  <app-table [columns]="columns" [data]="specialties" [loading]="loading" [errorMessage]="errorMessage"
+    emptyMessage="Nenhuma especialidade encontrada.">
+    <ng-template #customTemplates let-row let-key="key">
+      <ng-container [ngSwitch]="key">
+        <ng-container *ngSwitchDefault>{{ row[key] }}</ng-container>
+      </ng-container>
+    </ng-template>
 
-    </tbody>
-  </table>
+    <ng-template #actionsTemplate let-specialty>
+      <button mat-icon-button color="primary" [routerLink]="['/specialties/edit', specialty.id]">
+        <mat-icon>edit</mat-icon>
+      </button>
+
+      <button mat-icon-button color="warn" (click)="deleteSpecialty(specialty.id)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </ng-template>
+  </app-table>
   } @else{
   <p>Nenhum médico encontrado.</p>
   }

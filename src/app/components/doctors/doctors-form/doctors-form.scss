@@ -1,15 +1,9 @@
 .doctor-form-container {
-  // max-width: 400px;
   max-width: 50%;
-  margin: 40px auto;
+  margin: auto;
   padding: 20px;
   background: white;
   border-radius: 8px;
-
-  h2 {
-    margin-bottom: 20px;
-    text-align: center;
-  }
 
   label {
     display: block;
@@ -69,4 +63,13 @@ textarea.mat-mdc-input-element {
 
 textarea.mat-mdc-input-element {
   min-height: 120px; /* para o campo Observações ficar maior */
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+
+  h2 {
+    color: #1976d2;
+  }
 }

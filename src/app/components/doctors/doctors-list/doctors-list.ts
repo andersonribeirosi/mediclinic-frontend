@@ -27,7 +27,6 @@ import { MatSelectModule } from '@angular/material/select';
     TableComponent,
     MatSelectModule,
     FormsModule
-
   ],
   templateUrl: './doctors-list.html',
   styleUrls: ['./doctors-list.scss'],

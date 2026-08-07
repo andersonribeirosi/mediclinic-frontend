@@ -1,7 +1,17 @@
 <div class="doctors-container">
   <h2>Médicos</h2>
+  <div style="width: 250px;">
+    <mat-form-field appearance="outline" style="width: 100%;">
+      <mat-label>Filtrar por status</mat-label>
+      <mat-select [(value)]="statusFilter" (selectionChange)="applyFilter()">
+        <mat-option value="all">Todos</mat-option>
+        <mat-option value="active">Ativos</mat-option>
+        <mat-option value="inactive">Inativos</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
   <!-- =================== BOTÕES DE AÇÃO =================== -->
-  <div style="display: flex; justify-content: end; width: 100%; padding-block: 10px">
+  <div style="display: flex; justify-content: end; width: 100%; padding: 0px 0px 10px 0px">
     <!-- Botão para criar nova consulta -->
     <button mat-icon-button color="primary" routerLink="/doctors/new" aria-label="Novo médico">
       <mat-icon>add</mat-icon>
@@ -21,32 +31,20 @@
   <p class="error">{{ errorMessage }}</p>
   }
 
-  <div style="margin-bottom: 20px; width: 250px;">
-    <mat-form-field appearance="outline" style="width: 100%;">
-      <mat-label>Filtrar por status</mat-label>
-      <mat-select [(value)]="statusFilter" (selectionChange)="applyFilter()">
-        <mat-option value="all">Todos</mat-option>
-        <mat-option value="active">Ativos</mat-option>
-        <mat-option value="inactive">Inativos</mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
-
-
   <app-table [columns]="columns" [data]="filteredDoctors" [loading]="loading" [errorMessage]="errorMessage"
-    emptyMessage="Nenhuma consulta encontrada.">
+    emptyMessage="Nenhum médico encontrado.">
     <ng-template #customTemplates let-row let-key="key">
       <ng-container [ngSwitch]="key">
         <ng-container *ngSwitchDefault>{{ row[key] }}</ng-container>
       </ng-container>
     </ng-template>
 
-    <ng-template #actionsTemplate let-appointment>
-      <button mat-icon-button color="primary" [routerLink]="['/doctors/edit', appointment.id]">
+    <ng-template #actionsTemplate let-doctor>
+      <button mat-icon-button color="primary" [routerLink]="['/doctors/edit', doctor.id]">
         <mat-icon>edit</mat-icon>
       </button>
 
-      <button mat-icon-button color="warn" (click)="deleteDoctor(appointment.id)">
+      <button mat-icon-button color="warn" (click)="deleteDoctor(doctor.id)">
         <mat-icon>delete</mat-icon>
       </button>
     </ng-template>

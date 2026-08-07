@@ -1,9 +1,9 @@
-<p>specialties-form works!</p>
-<div class="specialty-form-container">
+<div class="title">
   <h2>{{ specialtyId ? 'Editar Especialidade' : 'Nova Especialidade' }}</h2>
+</div>
+<div class="specialty-form-container">
 
   <form [formGroup]="specialtyForm" (ngSubmit)="onSubmit()">
-
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Nome</mat-label>
       <input matInput formControlName="name" type="text" />
